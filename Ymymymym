@@ -1,0 +1,89 @@
+local Library = loadstring(game:HttpGet("https://pastebin.com/raw/vff1bQ9F"))()
+
+local Window = Library.CreateLib("DOUBLE HUB | BLOXFRUIT", "BloodTheme")
+
+local Tab = Window:NewTab("Main")
+
+local Section = Tab:NewSection("Main")
+
+Section:NewButton("                         Copy Link Discord", "!", function()
+
+setclipboard("https://discord.gg/2Bm9jjZz")
+
+end)
+
+Section:NewButton("                         Copy Link Youtube", "!", function()
+
+setclipboard("https://youtube.com/@DoubleHub")
+
+end)
+
+Section:NewToggle("Auto SetSpawn", "?", function(a)
+
+   _G.Set = a
+
+end)
+
+ spawn(function()
+
+	   while wait() do	      if _G.Set then
+
+	         pcall(function()
+
+	         local args = {
+
+	         [1] = "SetSpawnPoint"
+
+	         }
+
+	        game:GetService("ReplicatedStorage").Remotes.CommF_:InvokeServer(unpack(args))
+
+	      end)
+
+	    end
+
+	  end
+
+	end)
+
+	
+
+local Weaponlist = {}
+
+local Weapon = nil
+
+for i,v in pairs(game:GetService("Players").LocalPlayer.Backpack:GetChildren()) do
+
+    table.insert(Weaponlist,v.Name)
+
+end
+
+Section:NewDropdown("select weapon", " ", Weaponlist, function(currentOption)
+
+    Weapon = currentOption
+
+end)
+
+Section:NewToggle("Auto Equip", " ", function(s)
+
+AutoEquiped = s
+
+end)
+
+spawn(function()
+
+while wait() do
+
+if AutoEquiped then
+
+pcall(function()
+
+game.Players.LocalPlayer.Character.Humanoid:EquipTool(game:GetService("Players").LocalPlayer.Backpack:FindFirstChild(Weapon))
+
+end)
+
+end
+
+end
+
+end)
